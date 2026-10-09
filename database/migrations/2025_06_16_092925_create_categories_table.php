@@ -12,19 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->unsignedBigInteger('seq')->autoIncrement();
-            
-            $table->string('category_code')->index();
+            $table->id();
+
+            $table->string('code')->unique();
             $table->string('name');
             $table->enum('type', ['income', 'expense', 'saving']);
+            
+            $table->decimal('default_plan_amount', 12, 2)->default(0);
 
             $table->longText('remark')->nullable();
 
             $table->boolean('isdeleted')->default(false);
             $table->boolean('isactive')->default(true);
 
-            $table->string('created_user')->nullable();
-            $table->string('modified_user')->nullable();
+            $table->integer('created_user')->nullable();
+            $table->integer('modified_user')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

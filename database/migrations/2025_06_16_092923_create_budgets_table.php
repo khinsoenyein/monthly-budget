@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('budgets', function (Blueprint $table) {
-            $table->unsignedBigInteger('seq')->autoIncrement();
-            
-            $table->string('budget_code')->index();
+            $table->id();
+
+            $table->string('budget_code')->unique();
             $table->string('title');
             $table->string('month');
 
-            $table->string('currency_code')->nullable();
-            $table->foreign('currency_code')->references('currency_code')->on('currencies')->onDelete('cascade');
+            $table->unsignedBigInteger('currency_id');
+            $table->foreign('currency_id')->references('id')->on('currencies');
 
             $table->decimal('opening_balance', 12, 2)->default(0);
             $table->decimal('closing_balance', 12, 2)->default(0);
@@ -30,8 +30,8 @@ return new class extends Migration
             $table->boolean('isdeleted')->default(false);
             $table->boolean('isactive')->default(true);
 
-            $table->string('created_user')->nullable();
-            $table->string('modified_user')->nullable();
+            $table->integer('created_user')->nullable();
+            $table->integer('modified_user')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

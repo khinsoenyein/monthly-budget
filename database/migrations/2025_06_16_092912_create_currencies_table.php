@@ -12,18 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('currencies', function (Blueprint $table) {
-            $table->unsignedBigInteger('seq')->autoIncrement();
-            
-            $table->string('currency_code')->index();
-            $table->string('name');
+            $table->id();
 
+            $table->string('code')->unique();
+            $table->string('name');
             $table->longText('remark')->nullable();
 
             $table->boolean('isdeleted')->default(false);
             $table->boolean('isactive')->default(true);
 
-            $table->string('created_user')->nullable();
-            $table->string('modified_user')->nullable();
+            $table->integer('created_user')->nullable();
+            $table->integer('modified_user')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -12,31 +12,29 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('budget_items', function (Blueprint $table) {
-            $table->unsignedBigInteger('seq')->autoIncrement();
-            
-            $table->string('budget_item_code')->index();
+            $table->id();
 
-            $table->string('budget_code')->nullable();
-            $table->foreign('budget_code')->references('budget_code')->on('budgets')->onDelete('cascade');
-            
+            $table->unsignedBigInteger('budget_id')->nullable();
+            $table->foreign('budget_id')->references('id')->on('budgets')->onDelete('cascade');
+
             $table->enum('type', ['income', 'expense', 'saving']);
 
-            $table->string('category_code')->nullable();
-            $table->foreign('category_code')->references('category_code')->on('categories')->onDelete('cascade');
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
 
             $table->decimal('plan_amount', 12, 2)->default(0);
-            $table->decimal('actual_amount', 12, 2)->default(0);
+            // $table->decimal('actual_amount', 12, 2)->default(0);
 
-            $table->string('currency_code')->nullable();
-            $table->foreign('currency_code')->references('currency_code')->on('currencies')->onDelete('cascade');
+            $table->unsignedBigInteger('currency_id')->nullable();
+            $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('cascade');
 
             $table->longText('remark')->nullable();
 
             $table->boolean('isdeleted')->default(false);
             $table->boolean('isactive')->default(true);
 
-            $table->string('created_user')->nullable();
-            $table->string('modified_user')->nullable();
+            $table->integer('created_user')->nullable();
+            $table->integer('modified_user')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

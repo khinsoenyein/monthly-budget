@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('contacts', function (Blueprint $table) {
-            $table->unsignedBigInteger('seq')->autoIncrement();
-            
+            $table->id();
+
             $table->string('contact_code')->index();
 
             $table->string('name');

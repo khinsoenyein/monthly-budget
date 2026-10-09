@@ -12,13 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('payables', function (Blueprint $table) {
-            $table->unsignedBigInteger('seq')->autoIncrement();
-            
+            $table->id();
+
             $table->string('payable_code')->index();
             $table->string('date')->nullable();
 
-            $table->string('pay_to')->nullable(); 
+            $table->string('pay_to')->nullable();
             $table->foreign('pay_to')->references('contact_code')->on('contacts')->onDelete('cascade');
+
+            $table->unsignedBigInteger('transaction_id')->nullable();
+            $table->foreign('transaction_id')->references('id')->on('transactions')->onDelete('cascade');
 
             $table->string('due_date')->nullable();
             $table->decimal('amount', 12, 2)->default(0);

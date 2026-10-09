@@ -12,17 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('account_transfers', function (Blueprint $table) {
-            $table->unsignedBigInteger('seq')->autoIncrement();
-            
+            $table->id();
+
             $table->string('account_transfer_code')->index();
             $table->string('date')->nullable();
 
-            $table->string('from_account_code')->nullable();
-            $table->foreign('from_account_code')->references('account_code')->on('accounts')->onDelete('cascade');
+            $table->unsignedBigInteger('budget_id')->nullable();
+            $table->foreign('budget_id')->references('id')->on('budgets')->onDelete('cascade');
 
-            $table->string('to_account_code')->nullable();
-            $table->foreign('to_account_code')->references('account_code')->on('accounts')->onDelete('cascade');
-            
+            $table->unsignedBigInteger('from_account_id')->nullable();
+            $table->foreign('from_account_id')->references('id')->on('accounts')->onDelete('cascade');
+
+            $table->unsignedBigInteger('to_account_id')->nullable();
+            $table->foreign('to_account_id')->references('id')->on('accounts')->onDelete('cascade');
+
             $table->decimal('amount', 12, 2)->default(0);
 
             $table->longText('remark')->nullable();

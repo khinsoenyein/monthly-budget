@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
+import { BookOpen, CreditCard, Folder, Landmark, LayoutGrid, Receipt, Tags, Wallet } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -12,6 +12,34 @@ const mainNavItems: NavItem[] = [
         title: 'Dashboard',
         href: '/dashboard',
         icon: LayoutGrid,
+    },
+    {
+        title: 'Account',
+        href: '/accounts/summary',
+        icon: Receipt,
+    },
+    {
+        title: 'Transactions',
+        href: '/transactions',
+        icon: CreditCard,
+    },
+];
+
+const masterNavItems: NavItem[] = [
+    {
+        title: 'Accounts',
+        href: '/accounts',
+        icon: Landmark,
+    },
+    {
+        title: 'Budgets',
+        href: '/budgets',
+        icon: Wallet,
+    },
+    {
+        title: 'Categories',
+        href: '/categories',
+        icon: Tags,
     },
 ];
 
@@ -44,11 +72,12 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={mainNavItems} title=""  />
+                <NavMain items={masterNavItems} title="Master Data"  />
             </SidebarContent>
 
             <SidebarFooter>
-                <NavFooter items={footerNavItems} className="mt-auto" />
+                {/* <NavFooter items={footerNavItems} className="mt-auto" /> */}
                 <NavUser />
             </SidebarFooter>
         </Sidebar>
